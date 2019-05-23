@@ -6,10 +6,11 @@ services:
     environment:
       MYSQL_DATABASE: IE
       MYSQL_ROOT_PASSWORD: mypassword
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
     expose:
       - 3306
     ports:
-      - "9000:3306"
+      - 3306:3306
 
 
   backend:
@@ -21,3 +22,15 @@ services:
       - 8080
     ports: 
       - 8080:8080
+    links:
+      - database
+
+  frontend:
+    image: joboonja-frontend
+    build: ./IE-frontend
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    links:
+      - backend
