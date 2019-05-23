@@ -4,25 +4,20 @@ services:
   database:
     image: mysql:5.7.16
     environment:
-      MYSQL_DATABASE: 'IE'
-      MYSQL_ROOT_PASSWORD: 'mypassword'
+      MYSQL_DATABASE: IE
+      MYSQL_ROOT_PASSWORD: mypassword
     expose:
-      - '3306'
+      - 3306
     ports:
-      - '3306:3306'
-      
+      - "9000:3306"
+
+
   backend:
     image: joboonja-backend
     build: ./IE-project
+    depends_on:
+      - database
     expose: 
       - 8080
     ports: 
       - 8080:8080
-      
-  frontend:
-    image: joboonja-frontend
-    build: ./IE-frontend
-    ports:
-      - 5000:5000
-    links:
-      - backend
