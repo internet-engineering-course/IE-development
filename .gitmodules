@@ -1,6 +1,6 @@
 [submodule "IE-project"]
 	path = IE-project
-	url = https://github.com/navidakbari123/IE-project.git
+	url = git@github.com:navidakbari123/IE-project.git
 [submodule "IE-frontend"]
 	path = IE-frontend
-	url = https://github.com/navidakbari123/IE-frontend.git
+	url = git@github.com:navidakbari123/IE-frontend.git
