@@ -10,7 +10,7 @@ services:
     expose:
       - 3306
     ports:
-      - 3306:3306
+      - 9000:3306
 
 
   backend:
