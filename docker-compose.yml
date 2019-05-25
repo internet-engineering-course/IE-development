@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 
 volumes:
   data-volume:
@@ -16,6 +16,10 @@ services:
       - 9000:3306
     volumes:
       - data-volume:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
 
   backend:
@@ -29,6 +33,9 @@ services:
       - 8080:8080
     links:
       - database
+    depends_on:
+      database:
+        condition: service_healthy
 
   frontend:
     image: joboonja-frontend
