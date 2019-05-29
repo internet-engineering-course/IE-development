@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: database
+  name: database
+spec:
+  selector:
+    matchLabels:
+      app: database
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+      - args:
+        - --character-set-server=utf8
+        - --collation-server=utf8_general_ci
+        env:
+        - name: MYSQL_DATABASE
+          value: IE
+        - name: MYSQL_ROOT_PASSWORD
+          value: mypassword
+        image: mysql:5.7.16
+        imagePullPolicy: IfNotPresent
+        name: database
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 400m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: ahmadreza-data-volume
+          subPath: ahmadreza-mysql
+      restartPolicy: Always
+      volumes:
+      - name: ahmadreza-data-volume
+        persistentVolumeClaim:
+          claimName: ahmadreza-data-volume
+status: {}
